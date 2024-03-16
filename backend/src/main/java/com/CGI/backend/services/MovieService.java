@@ -8,15 +8,14 @@ import com.CGI.backend.repository.MovieRepository;
 import com.CGI.backend.repository.PurchaseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -54,5 +53,25 @@ public class MovieService {
 
         public Set<Integer> getNonAvailableSeatsForMovie(Long movieId) {
                 return purchaseRepository.findSeatNumbersByMovieId(movieId);
+        }
+        // Method to get recommended movies based on user's purchase history
+        public Page<Movie> getRecommendedMovies(Pageable pageable) {
+                List<Purchase> purchases = purchaseRepository.findAll(); // Retrieve all purchases
+
+                // Count the occurrences of each genre in the purchases
+                Map<String, Long> genreCounts = purchases.stream()
+                        .map(purchase -> purchase.getMovie().getGenre())
+                        .collect(Collectors.groupingBy(genre -> genre, Collectors.counting()));
+
+                // Sort genres by their occurrence count in descending order
+                List<String> sortedGenres = genreCounts.entrySet().stream()
+                        .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList());
+
+                // Query movies based on preferred genres and weights
+                List<Movie> recommendedMovies = movieRepository.findByGenreInOrderByTitle(sortedGenres, pageable);
+
+                return new PageImpl<>(recommendedMovies, pageable, recommendedMovies.size());
         }
 }
