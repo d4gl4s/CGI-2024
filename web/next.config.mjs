@@ -1,4 +1,16 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+/* @type {import('next').NextConfig} */
 
-export default nextConfig;
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.english.elpais.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
+}
+
+export default nextConfig

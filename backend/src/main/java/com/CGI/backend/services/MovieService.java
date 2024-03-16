@@ -33,12 +33,13 @@ public class MovieService {
         }
 
         // Method to get all movies with pagination
-        public Page<Movie> getAllMovies(Pageable pageable, String ageRating, String startTime, String language) {
+        public Page<Movie> getAllMovies(Pageable pageable, String ageRating,String genre, String startTime, String language) {
                 Specification<Movie> spec = Specification.where(null);
 
                 if (ageRating != null) // Filter by age rating
                         spec = spec.and((root, query, builder) -> builder.equal(root.get("ageRating"), AgeRating.valueOf(ageRating)));
-
+                if (genre != null) // Filter by genre
+                        spec = spec.and((root, query, builder) -> builder.equal(root.get("genre"), AgeRating.valueOf(genre)));
                 if (startTime != null) {
                         LocalTime parsedStartTime = LocalTime.parse(startTime);
                         spec = spec.and((root, query, builder) -> builder.greaterThanOrEqualTo(root.get("startTime"), parsedStartTime));

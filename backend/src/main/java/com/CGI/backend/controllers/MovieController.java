@@ -33,11 +33,12 @@ public class MovieController {
     public ResponseEntity<MoviePageResponse> getAllMovies(
         Pageable pageable,
         @RequestParam(required = false) String ageRating,
+        @RequestParam(required = false) String genre,
         @RequestParam(required = false) String startTime,
         @RequestParam(required = false) String language
     ) {
         // Call service method with filters
-        Page<Movie> movies = movieService.getAllMovies(pageable, ageRating, startTime, language);
+        Page<Movie> movies = movieService.getAllMovies(pageable, ageRating,genre, startTime, language);
         MoviePageResponse response = new MoviePageResponse(movies);
         return ResponseEntity.ok(response);
     }
