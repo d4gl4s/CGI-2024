@@ -8,7 +8,7 @@ export function createArrayFrom1To48() {
 
 export function recommendedSeats(seatCount: number, takenSeats: number[]) {
   let recommendedSeats = [] as number[]
-  if (takenSeats.length + seatCount >= 48) return recommendedSeats // No seats left
+  if (takenSeats.length + seatCount > 48) return recommendedSeats // No seats left
 
   const numRows: number = 6
   const numCols: number = 8

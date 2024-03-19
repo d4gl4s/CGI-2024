@@ -3,6 +3,33 @@ import { formatMinutes, formatStartTime } from "@/utils/helpers"
 import ChooseSeats from "./components/ChooseSeats"
 import Image from "next/image"
 
+import { movieType } from "@/types/types"
+
+interface PurchaseRequestDTO {
+  seatNumbers: number[]
+  movie: movieType
+}
+
+export const addPurchase = async (purchaseRequestDTO: PurchaseRequestDTO): Promise<void> => {
+  try {
+    const response = await fetch("http://localhost:8080/api/purchases", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(purchaseRequestDTO),
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to add purchase")
+    }
+
+    const responseData = await response.text()
+  } catch (error) {
+    console.error("Error adding purchase:", error)
+  }
+}
+
 async function getMovieDetails(id: number) {
   try {
     const res = await fetch(`http://localhost:8080/api/movies/${id}`, {
@@ -23,6 +50,15 @@ export default async function Home({ params }: { params: { id: number } }) {
   const { data, error } = (await getMovieDetails(params.id)) as movieErrorDTO
   if (error) return <div>Error: {error}</div>
   const movie = data?.movie!
+
+  async function handleAddPurchase(seatNumbers: number[]) {
+    "use server"
+    await addPurchase({
+      seatNumbers: seatNumbers,
+      movie: movie,
+    })
+  }
+
   return (
     <main>
       <section className="flex mt-28 mb-16">
@@ -43,7 +79,7 @@ export default async function Home({ params }: { params: { id: number } }) {
         </div>
       </section>
 
-      <ChooseSeats unavailableSeats={data?.nonAvailableSeats!} />
+      <ChooseSeats unavailableSeats={data?.nonAvailableSeats!} handleAddPurchase={handleAddPurchase} />
     </main>
   )
 }
