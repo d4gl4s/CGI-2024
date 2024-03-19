@@ -26,9 +26,23 @@ export function recommendedSeats(seatCount: number, takenSeats: number[]) {
 
 // Helper functions
 
+function findAvailableSeats(seatCount: number, seatMatrix: boolean[][]) {
+  const rowPriorities = [
+    [2, 3],
+    [1, 4],
+    [0, 1],
+  ] // Prioritize rows based on business rule
+
+  for (const rowPriority of rowPriorities) {
+    const seats = checkRowAvailableSeatsNextToEachOther(rowPriority, seatCount, seatMatrix)
+    if (seats.length === seatCount) return convertSeatPositionsToNumbers(seats, seatMatrix[0].length)
+  }
+  return [] // Return null if no suitable seats found
+}
+
 function checkRowAvailableSeatsNextToEachOther(rows: number[], seatCount: number, seatMatrix: boolean[][]): [number, number][] {
-  // Function to check if the given row has seatCount seats available next to each other
-  function hasAvailableSeats(row: number, seatCount: number): boolean {
+  function hasAvailableSeats(row: number, seatCount: number): [number, number][] | null {
+    const availableSeats: [number, number][] = []
     for (let col = 0; col <= seatMatrix[row].length - seatCount; col++) {
       let found = true
       for (let i = col; i < col + seatCount; i++) {
@@ -37,45 +51,31 @@ function checkRowAvailableSeatsNextToEachOther(rows: number[], seatCount: number
           break
         }
       }
-      if (found) return true
+      if (found) {
+        for (let i = col; i < col + seatCount; i++) {
+          availableSeats.push([row, i])
+        }
+        return availableSeats
+      }
     }
-    return false
+    return null
   }
 
-  let availableSeats: [number, number][] = []
   let maxCenterDistance = -1
-  let chosenRow: number | null = null
+  let chosenSeats: [number, number][] | null = null
 
   for (let row of rows) {
-    if (hasAvailableSeats(row, seatCount)) {
+    const availableSeats = hasAvailableSeats(row, seatCount)
+    if (availableSeats) {
       let centerDistance = Math.abs(seatMatrix[row].length / 2 - (seatCount / 2 + rows.indexOf(row)))
       if (centerDistance > maxCenterDistance) {
-        chosenRow = row
+        chosenSeats = availableSeats
         maxCenterDistance = centerDistance
       }
     }
   }
 
-  if (chosenRow !== null) {
-    for (let col = 0; col <= seatMatrix[chosenRow].length - seatCount; col++) {
-      let found = true
-      for (let i = col; i < col + seatCount; i++) {
-        if (seatMatrix[chosenRow][i]) {
-          found = false
-          break
-        }
-      }
-      if (found) {
-        availableSeats.push([chosenRow, col])
-        for (let i = col; i < col + seatCount; i++) {
-          seatMatrix[chosenRow][i] = true // Mark seats as taken
-        }
-        break // Exit loop once found
-      }
-    }
-  }
-
-  return availableSeats
+  return chosenSeats ? chosenSeats : []
 }
 
 function convertToSeatNumber(row: number, col: number, numCols: number): number {
@@ -89,18 +89,4 @@ function convertSeatPositionsToNumbers(seatPositions: [number, number][], numCol
     seatNumbers.push(seatNumber)
   }
   return seatNumbers
-}
-
-function findAvailableSeats(seatCount: number, seatMatrix: boolean[][]) {
-  const rowPriorities = [
-    [2, 3],
-    [1, 4],
-    [0, 1],
-  ] // Prioritize rows based on business rule
-
-  for (const rowPriority of rowPriorities) {
-    const seats = checkRowAvailableSeatsNextToEachOther(rowPriority, seatCount, seatMatrix)
-    if (seats.length === seatCount) return convertSeatPositionsToNumbers(seats, seatMatrix[0].length)
-  }
-  return [] // Return null if no suitable seats found
 }

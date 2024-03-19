@@ -5,7 +5,7 @@ import Chair from "./Chair"
 import { createArrayFrom1To48, recommendedSeats } from "../utils/suggestSeats"
 
 const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
-  const [selected, setSelected] = useState<number[]>(recommendedSeats(1, unavailableSeats))
+  const [selected, setSelected] = useState<number[]>(recommendedSeats(2, unavailableSeats))
   const [ticketCount, setTicketCount] = useState<number>(selected.length != 0 ? 1 : 0)
   const seatNumbers = createArrayFrom1To48()
 
@@ -24,15 +24,20 @@ const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
     }
   }
 
+  function handleSeatCountChange(newSeatCount: number) {
+    setSelected(recommendedSeats(newSeatCount, unavailableSeats))
+    setTicketCount(newSeatCount)
+  }
+
   return (
     <section className="bg-[#333347] text-white p-16">
       <h1 className=" font-semibold text-[2em] mt-8 mb-6">Vali Istekohad 💺</h1>
       <div className="flex items-center">
         Piletite Arv: <div className="ml-4 rounded-[5px] bg-[#515170]  px-5 py-2 w-16 flex items-center justify-center">{ticketCount}</div>
-        <div className="ml-2 rounded-[5px] bg-[#515170] px-5 py-2 flex items-center justify-center cursor-pointer font-black" onClick={() => setTicketCount(ticketCount + 1)}>
+        <div className="ml-2 rounded-[5px] bg-[#515170] px-5 py-2 flex items-center justify-center cursor-pointer font-black" onClick={() => handleSeatCountChange(ticketCount + 1)}>
           +
         </div>
-        <div className="ml-2 rounded-[5px] bg-[#515170]  px-5 py-2  flex items-center justify-center cursor-pointer font-black" onClick={() => setTicketCount(Math.max(ticketCount - 1, 0))}>
+        <div className="ml-2 rounded-[5px] bg-[#515170]  px-5 py-2  flex items-center justify-center cursor-pointer font-black" onClick={() => handleSeatCountChange(Math.max(ticketCount - 1, 0))}>
           -
         </div>
       </div>
