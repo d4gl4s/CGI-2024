@@ -11,8 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class Application {
@@ -27,9 +26,30 @@ public class Application {
 			Movie movie2 = new Movie("Movie 2", "Description 2", "Comedy", AgeRating.R, LocalTime.now(), 120, "English", "https://images.english.elpais.com/resizer/SJcC_wP0VXNcCcwJwHOLThym-uI=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/5XMXTR36RRDZHJY7VKLKKEMDQA.jpg" );
 			movieRepository.save(movie);
 			movieRepository.save(movie2);
-			Purchase purchase = new Purchase(List.of(1, 2, 3), movie);
+			Purchase purchase = generateRandomTakenSeats(movie);
+			Purchase purchase2 = generateRandomTakenSeats(movie2);
 			purchaseRepository.save(purchase);
+			purchaseRepository.save(purchase2);
 		};
+	}
+
+	public static Purchase generateRandomTakenSeats(Movie movie){
+		Random random = new Random();
+		int minCount = 10; // Minimum count of random seats
+		int maxCount = 25; // Maximum count of random seats
+		int minRange = 1;  // Minimum seat number
+		int maxRange = 48; // Maximum seat number
+
+		// Generate a random count of seats between minCount and maxCount
+		int count = random.nextInt(maxCount - minCount + 1) + minCount;
+		Set<Integer> takenSeats = new HashSet<>();// Create a Set to store unique random seat numbers
+
+		// Generate unique random seats and add them to the Set
+		while (takenSeats.size() < count) {
+			int randomNumber = random.nextInt(maxRange - minRange + 1) + minRange;
+			takenSeats.add(randomNumber);
+		}
+		return new Purchase(takenSeats, movie, 1L);
 	}
 
 }

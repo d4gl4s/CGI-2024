@@ -10,5 +10,4 @@ import java.util.Set;
 public class MovieDetailsResponse {
     private Movie movie;
     private Set<Integer> nonAvailableSeats;
-
 }

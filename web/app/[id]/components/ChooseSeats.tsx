@@ -2,18 +2,11 @@
 
 import { useState } from "react"
 import Chair from "./Chair"
-
-function createArrayFrom1To48() {
-  const arr = []
-  for (let i = 1; i <= 48; i++) {
-    arr.push(i)
-  }
-  return arr
-}
+import { createArrayFrom1To48, recommendedSeats } from "../utils/suggestSeats"
 
 const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
-  const [selected, setSelected] = useState<number[]>([])
-  const [ticketCount, setTicketCount] = useState<number>(1)
+  const [selected, setSelected] = useState<number[]>(recommendedSeats(1, unavailableSeats))
+  const [ticketCount, setTicketCount] = useState<number>(selected.length != 0 ? 1 : 0)
   const seatNumbers = createArrayFrom1To48()
 
   function handleSelect(chairNumber: number) {
@@ -39,20 +32,22 @@ const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
         <div className="ml-2 rounded-[5px] bg-[#515170] px-5 py-2 flex items-center justify-center cursor-pointer font-black" onClick={() => setTicketCount(ticketCount + 1)}>
           +
         </div>
-        <div className="ml-2 rounded-[5px] bg-[#515170]  px-5 py-2  flex items-center justify-center cursor-pointer font-black" onClick={() => setTicketCount(ticketCount - 1)}>
+        <div className="ml-2 rounded-[5px] bg-[#515170]  px-5 py-2  flex items-center justify-center cursor-pointer font-black" onClick={() => setTicketCount(Math.max(ticketCount - 1, 0))}>
           -
         </div>
       </div>
+
       <div className="mt-4 flex items-center h-8">
         <span className="mr-4">Valitud Istekohad: </span>
-
-        <div className="ml-1 rounded-[5px] bg-[#515170]  px-4 py-2  flex items-center justify-center cursor-pointer">
-          {selected.map((seatNumber, i) => (
-            <div className="mr-1" key={i}>
-              {seatNumber},{" "}
-            </div>
-          ))}
-        </div>
+        {selected.length != 0 && (
+          <div className="ml-1 rounded-[5px] bg-[#515170]  px-4 py-2  flex items-center justify-center cursor-pointer">
+            {selected.map((seatNumber, i) => (
+              <div className="mr-1" key={i}>
+                {seatNumber},{" "}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className="w-[400px] grid grid-cols-8 gap-2 m-auto mt-12">
         {seatNumbers.map((number, i) => (

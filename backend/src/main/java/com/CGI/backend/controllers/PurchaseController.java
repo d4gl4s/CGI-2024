@@ -17,7 +17,7 @@ public class PurchaseController {
     @PostMapping
     public ResponseEntity<String> addPurchase(@RequestBody PurchaseRequestDTO purchaseRequestDTO) {
         // Map PurchaseRequestDTO to Purchase entity
-        Purchase purchase = new Purchase(purchaseRequestDTO.getSeatNumbers(), purchaseRequestDTO.getMovie());
+        Purchase purchase = new Purchase(purchaseRequestDTO.getSeatNumbers(), purchaseRequestDTO.getMovie(), 2L);
         purchaseService.addPurchase(purchase);// Add the purchase to the database
 
         return ResponseEntity.ok("Purchase added successfully");

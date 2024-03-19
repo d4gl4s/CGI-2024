@@ -1,7 +1,7 @@
 package com.CGI.backend.models;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,8 +14,10 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId; // this is only to differentiate between purchases the user has made and seats that were booked by others.
+
     @ElementCollection
-    private List<Integer> seatNumbers;
+    private Set<Integer> seatNumbers;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -24,7 +26,8 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date purchaseDate;
 
-    public Purchase(List<Integer> seatNumbers, Movie movie) {
+    public Purchase(Set<Integer> seatNumbers, Movie movie, Long userId) {
+        this.userId = userId;
         this.seatNumbers = seatNumbers;
         this.movie = movie;
         this.purchaseDate = new Date(); // Assign current time
