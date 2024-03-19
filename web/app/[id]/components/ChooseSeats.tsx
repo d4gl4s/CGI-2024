@@ -5,7 +5,8 @@ import Chair from "./Chair"
 import { createArrayFrom1To48, recommendedSeats } from "../utils/suggestSeats"
 
 const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
-  const [selected, setSelected] = useState<number[]>(recommendedSeats(2, unavailableSeats))
+  const availableSeatCount = 48 - unavailableSeats.length
+  const [selected, setSelected] = useState<number[]>(recommendedSeats(Math.min(availableSeatCount, 1), unavailableSeats))
   const [ticketCount, setTicketCount] = useState<number>(selected.length != 0 ? 1 : 0)
   const seatNumbers = createArrayFrom1To48()
 
@@ -34,7 +35,10 @@ const ChooseSeats = ({ unavailableSeats }: { unavailableSeats: number[] }) => {
       <h1 className=" font-semibold text-[2em] mt-8 mb-6">Vali Istekohad 💺</h1>
       <div className="flex items-center">
         Piletite Arv: <div className="ml-4 rounded-[5px] bg-[#515170]  px-5 py-2 w-16 flex items-center justify-center">{ticketCount}</div>
-        <div className="ml-2 rounded-[5px] bg-[#515170] px-5 py-2 flex items-center justify-center cursor-pointer font-black" onClick={() => handleSeatCountChange(ticketCount + 1)}>
+        <div
+          className="ml-2 rounded-[5px] bg-[#515170] px-5 py-2 flex items-center justify-center cursor-pointer font-black"
+          onClick={() => handleSeatCountChange(Math.min(ticketCount + 1, availableSeatCount))}
+        >
           +
         </div>
         <div className="ml-2 rounded-[5px] bg-[#515170]  px-5 py-2  flex items-center justify-center cursor-pointer font-black" onClick={() => handleSeatCountChange(Math.max(ticketCount - 1, 0))}>

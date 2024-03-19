@@ -37,7 +37,7 @@ function findAvailableSeats(seatCount: number, seatMatrix: boolean[][]) {
     const seats = checkRowAvailableSeatsNextToEachOther(rowPriority, seatCount, seatMatrix)
     if (seats.length === seatCount) return convertSeatPositionsToNumbers(seats, seatMatrix[0].length)
   }
-  return [] // Return null if no suitable seats found
+  return convertSeatPositionsToNumbers(findClosestSeatsToCenter(seatCount, seatMatrix), seatMatrix[0].length)
 }
 
 function checkRowAvailableSeatsNextToEachOther(rows: number[], seatCount: number, seatMatrix: boolean[][]): [number, number][] {
@@ -76,6 +76,38 @@ function checkRowAvailableSeatsNextToEachOther(rows: number[], seatCount: number
   }
 
   return chosenSeats ? chosenSeats : []
+}
+
+function findClosestSeatsToCenter(seatCount: number, seatMatrix: boolean[][]): [number, number][] {
+  console.log(seatCount)
+  console.log("her")
+  const numRows = seatMatrix.length
+  const numCols = seatMatrix[0].length
+
+  let centerRow = Math.floor(numRows / 2)
+  let centerCol = Math.floor(numCols / 2)
+
+  // Calculate distances of each seat to the center
+  const seatDistances: { position: [number, number]; distance: number }[] = []
+  for (let row = 0; row < numRows; row++) {
+    for (let col = 0; col < numCols; col++) {
+      if (!seatMatrix[row][col]) {
+        const distance = Math.abs(centerRow - row) + Math.abs(centerCol - col)
+        seatDistances.push({ position: [row, col], distance: distance })
+      }
+    }
+  }
+
+  // Sort seats by distance to center
+  seatDistances.sort((a, b) => a.distance - b.distance)
+
+  // Return the positions of seatCount seats closest to the center
+  const closestSeats: [number, number][] = []
+  for (let i = 0; i < Math.min(seatCount, seatDistances.length); i++) {
+    closestSeats.push(seatDistances[i].position)
+  }
+
+  return closestSeats
 }
 
 function convertToSeatNumber(row: number, col: number, numCols: number): number {
