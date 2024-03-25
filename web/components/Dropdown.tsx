@@ -19,7 +19,7 @@ const Dropdown = ({ selectedOption, options, handleVersionSelect }: Dropdown) =>
   }
 
   return (
-    <div className="relative text-[0.9em] ml-1">
+    <div className="relative text-[0.9em] ml-1 mb-1">
       <div
         onClick={() => setOpen(!open)}
         className={

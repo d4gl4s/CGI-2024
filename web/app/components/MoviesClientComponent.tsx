@@ -143,13 +143,13 @@ export default function MoviesClientComponent() {
   return (
     <>
       <h1 className="mt-20 mb-8 font-bold text-[2.5em]">Filmid</h1>
-      <section className="flex justify-end mb-10 z-20">
+      <section className="flex flex-row justify-end mb-10 z-20 flex-wrap">
         <Checkbox label="Recommended" selected={recommended} handleSelect={() => handleRecommendedInputChange(!recommended)} />
         <Dropdown selectedOption={selectedGenre} options={["Action", "Adventure", "Drama", "Animation", "Comedy", "Horror", "Crime"]} handleVersionSelect={handleGenreSelect} />
         <Dropdown selectedOption={selectedLanguage} options={["English", "Korean", "tere3"]} handleVersionSelect={handleLanguageSelect} />
         <Dropdown selectedOption={selectedAgeRating} options={["R", "PG", "PG_13", "G"]} handleVersionSelect={handleAgeRatingSelect} />
         <Dropdown selectedOption={selectedStartTime} options={["10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"]} handleVersionSelect={handleStartTimeSelect} />
-        <button className="bg-indigo-400 px-4 rounded-md ml-1 text-white" onClick={resetFilter}>
+        <button className="bg-indigo-400 px-4 rounded-md ml-1 text-white mb-1" onClick={resetFilter}>
           Reset
         </button>
       </section>

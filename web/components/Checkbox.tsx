@@ -8,7 +8,7 @@ interface Checkbox {
 const Checkbox = ({ label, selected, handleSelect }: Checkbox) => {
   return (
     <div
-      className="text-[0.9em] flex w-[11em] flex-row text-slate-600 items-center justify-between py-2 px-3 bg-slate-200 border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer"
+      className="text-[0.9em] mb-1 flex w-[11em] flex-row text-slate-800 items-center justify-between py-2 px-3 bg-slate-50 border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer"
       onClick={handleSelect}
     >
       {label}{" "}
@@ -17,7 +17,7 @@ const Checkbox = ({ label, selected, handleSelect }: Checkbox) => {
           <FaCheck size={10} />
         </div>
       ) : (
-        <div className="w-4 h-4 bg-[#f8fafc] rounded-[3px]"></div>
+        <div className="w-4 h-4 bg-[#f8fafc] rounded-[3px] border border-[2px] border-slate-200"></div>
       )}
     </div>
   )
