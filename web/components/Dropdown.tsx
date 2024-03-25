@@ -22,15 +22,18 @@ const Dropdown = ({ selectedOption, options, handleVersionSelect }: Dropdown) =>
     <div className="relative text-[0.9em] ml-1">
       <div
         onClick={() => setOpen(!open)}
-        className="flex w-[10em] flex-row text-slate-600 items-center justify-between py-2 px-4 bg-slate-50 border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer"
+        className={
+          "flex w-[10em] flex-row text-slate-600 items-center justify-between py-2 px-4 bg-slate-50 border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer " +
+          (selectedOption != "Genre" && selectedOption != "Language" && selectedOption != "Age Rating" && selectedOption != "Start Time" && " bg-slate-300")
+        }
       >
         <span className="mr-1 font-medium">{selectedOption}</span>
         {open ? <IoMdArrowDropup size={18} /> : <IoMdArrowDropdown size={18} />}
       </div>
       {open && (
-        <ul className="absolute top-[40px] text-slate-600 justify-between py-2 px-4 w-full bg-slate-50 border border-solid border-slate-400 border-1 rounded-[4px]">
+        <ul className="absolute top-[40px] text-slate-600 justify-between py-2 pl-4 w-full bg-slate-50 border border-solid border-slate-400 border-1 rounded-[4px] z-20">
           {options.map((option, i) => (
-            <li key={i} className="mb-2 cursor-pointer w-fit" onClick={() => handleSelect(option)}>
+            <li key={i} className={"mb-2 cursor-pointer w-fit  w-full " + (selectedOption == option && " font-bold")} onClick={() => handleSelect(option)}>
               {option}
             </li>
           ))}

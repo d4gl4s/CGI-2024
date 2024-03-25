@@ -8,7 +8,7 @@ interface Checkbox {
 const Checkbox = ({ label, selected, handleSelect }: Checkbox) => {
   return (
     <div
-      className="text-[0.9em] flex w-[11em] flex-row text-slate-600 items-center justify-between py-2 px-3 bg-[#E2E6F3] border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer"
+      className="text-[0.9em] flex w-[11em] flex-row text-slate-600 items-center justify-between py-2 px-3 bg-slate-200 border border-solid border-slate-400 border-1 rounded-[4px] cursor-pointer"
       onClick={handleSelect}
     >
       {label}{" "}

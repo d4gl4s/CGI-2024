@@ -1,4 +1,4 @@
-package com.CGI.backend.exceptions.errors;
+package com.CGI.backend.exceptions;
 
 public class MovieNotFoundException extends RuntimeException {
     public MovieNotFoundException(String message) {

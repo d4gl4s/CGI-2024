@@ -1,7 +1,7 @@
 package com.CGI.backend.services;
 
 import com.CGI.backend.enums.AgeRating;
-import com.CGI.backend.exceptions.errors.MovieNotFoundException;
+import com.CGI.backend.exceptions.MovieNotFoundException;
 import com.CGI.backend.models.Movie;
 import com.CGI.backend.models.Purchase;
 import com.CGI.backend.repository.MovieRepository;
@@ -39,7 +39,7 @@ public class MovieService {
                 if (ageRating != null) // Filter by age rating
                         spec = spec.and((root, query, builder) -> builder.equal(root.get("ageRating"), AgeRating.valueOf(ageRating)));
                 if (genre != null) // Filter by genre
-                        spec = spec.and((root, query, builder) -> builder.equal(root.get("genre"), AgeRating.valueOf(genre)));
+                        spec = spec.and((root, query, builder) -> builder.equal(root.get("genre"), genre));
                 if (startTime != null) {
                         LocalTime parsedStartTime = LocalTime.parse(startTime);
                         spec = spec.and((root, query, builder) -> builder.greaterThanOrEqualTo(root.get("startTime"), parsedStartTime));

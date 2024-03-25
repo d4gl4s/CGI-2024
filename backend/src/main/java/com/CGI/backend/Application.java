@@ -5,6 +5,7 @@ import com.CGI.backend.models.Movie;
 import com.CGI.backend.models.Purchase;
 import com.CGI.backend.repository.MovieRepository;
 import com.CGI.backend.repository.PurchaseRepository;
+import com.CGI.components.MovieReader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +23,12 @@ public class Application {
 	@Bean
 	CommandLineRunner run(MovieRepository movieRepository, PurchaseRepository purchaseRepository){
 		return args -> {
-			Movie movie = new Movie("Movie 1", "Description 1", "Action", AgeRating.R, LocalTime.now(), 120, "English", "https://images.english.elpais.com/resizer/SJcC_wP0VXNcCcwJwHOLThym-uI=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/5XMXTR36RRDZHJY7VKLKKEMDQA.jpg" );
-			Movie movie2 = new Movie("Movie 2", "Description 2", "Comedy", AgeRating.R, LocalTime.now(), 120, "English", "https://images.english.elpais.com/resizer/SJcC_wP0VXNcCcwJwHOLThym-uI=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/5XMXTR36RRDZHJY7VKLKKEMDQA.jpg" );
-			movieRepository.save(movie);
-			movieRepository.save(movie2);
-			Purchase purchase = generateRandomTakenSeats(movie);
-			Purchase purchase2 = generateRandomTakenSeats(movie2);
-			purchaseRepository.save(purchase);
-			purchaseRepository.save(purchase2);
+			List<Movie> movies = MovieReader.readMoviesFromCSV(); // Read in movie metadata from CSV file
+			movieRepository.saveAll(movies);
+			for (Movie movie : movies) {
+				Purchase purchase = generateRandomTakenSeats(movie);
+				purchaseRepository.save(purchase);
+			}
 		};
 	}
 

@@ -13,28 +13,26 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-    private String description;
     private String genre;
-
+    private String directorName;
     @Enumerated(EnumType.STRING)
     private AgeRating ageRating;
     private LocalTime startTime;
     private int duration; // in minutes
     private String language;
+    private double imdbScore;
     private String poster;
 
-    // Constructor without the ID parameter
-    public Movie(String title, String description, String genre, AgeRating ageRating, LocalTime startTime, int duration, String language, String poster) {
+    public Movie(String title,  String genre, String directorName, AgeRating ageRating, LocalTime startTime, int duration, String language, double imdbScore, String poster) {
         this.title = title;
-        this.description = description;
         this.genre = genre;
+        this.directorName = directorName;
         this.ageRating = ageRating;
         this.startTime = startTime;
         this.duration = duration;
         this.language = language;
+        this.imdbScore = imdbScore;
         this.poster = poster;
     }
-
 }

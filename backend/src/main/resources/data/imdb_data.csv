@@ -1,0 +1,29 @@
+director_name,duration,genres,movie_title,language,content_rating,imdb_score,poster_link
+Jan de Bont,116,Action,Speed,English,R,7.2,https://m.media-amazon.com/images/M/MV5BODNjNWU2MDktNzcyYi00MjM3LTg3MDQtODAwZTVlNmM2MzkyXkEyXkFqcGdeQXVyMzM4MjM0Nzg@._V1_.jpg
+Steve Martino,88,Adventure,Ice Age: Continental Drift,English,PG,6.6,https://m.media-amazon.com/images/M/MV5BMzg3NjYxODk4Ml5BMl5BanBnXkFtZTcwNTU4MTI3Nw@@._V1_.jpg
+James Wong,100,Action,Dragonball: Evolution,English,PG,2.7,https://m.media-amazon.com/images/M/MV5BMjQ3OTZkYTgtNmE3YS00NWMzLWExNTctNjYxYjQ5MmY0NTI5XkEyXkFqcGdeQXVyMTI0MzA4NTgw._V1_.jpg
+M. Night Shyamalan,110,Drama,Lady in the Water,English,PG_13,5.6,https://m.media-amazon.com/images/M/MV5BMTc4NzgyMDc4Ml5BMl5BanBnXkFtZTcwMjA2MjE2MQ@@._V1_.jpg
+Martin Campbell,123,Action,Green Lantern,English,PG_13,5.6,https://m.media-amazon.com/images/M/MV5BZjQ1YTIxNzEtMzcxNC00NTUzLThkZjktMmJlYTcyMjBhMGUyXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_.jpg
+Tim Burton,77,Animation,Corpse Bride,English,PG,7.4,https://m.media-amazon.com/images/M/MV5BMTk1MTY1NjU4MF5BMl5BanBnXkFtZTcwNjIzMTEzMw@@._V1_.jpg
+Shane Black,103,Comedy,Kiss Kiss Bang Bang,English,R,7.6,https://m.media-amazon.com/images/M/MV5BMTU4NTg2NjgzM15BMl5BanBnXkFtZTcwMTM3MzEzMQ@@._V1_.jpg
+Mike Nichols,125,Drama,Wolf,English,R,6.2,https://m.media-amazon.com/images/M/MV5BMGNhNjBjZGQtYTU1Mi00NmQxLTgwZTktM2QyOGI3OTMwMmMxXkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_.jpg
+Malcolm D. Lee,88,Comedy,Scary Movie 5,English,PG_13,3.5,https://m.media-amazon.com/images/M/MV5BMTc5OTIxMjQ4NF5BMl5BanBnXkFtZTcwOTAyNDcyOQ@@._V1_.jpg
+Christopher Hutson,95,Horror,Bled,English,R,3.1,https://m.media-amazon.com/images/M/MV5BMTU2NjEwMzU2MF5BMl5BanBnXkFtZTcwMzA0Mzc0MQ@@._V1_.jpg
+Ruben Fleischer,88,Adventure,Zombieland,English,R,7.7,https://m.media-amazon.com/images/M/MV5BMTU5MDg0NTQ1N15BMl5BanBnXkFtZTcwMjA4Mjg3Mg@@._V1_.jpg
+Jessy Terrero,92,Comedy,Soul Plane,English,R,4.4,https://m.media-amazon.com/images/M/MV5BMTc5NDcxNjg5N15BMl5BanBnXkFtZTcwMDIyNzczMw@@._V1_.jpg
+Steve Taylor,108,Comedy,Blue Like Jazz,English,PG_13,6,https://m.media-amazon.com/images/M/MV5BMjEyNjAxNDMyMF5BMl5BanBnXkFtZTcwODI4ODE0Nw@@._V1_.jpg
+Jamal Hill,89,Drama,Brotherly Love,English,R,7.2,https://m.media-amazon.com/images/M/MV5BMTA3Y2I2YTItNWFhNi00ZGMwLTllYTItNzNkY2VjMDJlM2UyXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg
+John Murlowski,89,Comedy,Christmas Mail,English,PG,5.8,https://m.media-amazon.com/images/M/MV5BYzAzMTEyOTAtZTY4MS00M2VmLThmZTMtZjMxMGFhYzlhOGJmXkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_.jpg
+David O. Russell,122,Comedy,Silver Linings Playbook,English,R,7.8,https://m.media-amazon.com/images/M/MV5BMTM2MTI5NzA3MF5BMl5BanBnXkFtZTcwODExNTc0OA@@._V1_.jpg
+Mikael Salomon,97,Action,Hard Rain,English,R,5.8,https://m.media-amazon.com/images/M/MV5BZTM5OGJkOGYtYWEyNy00MGI2LWI2NTctYTE0MTEyMTc3MmU5XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg
+Dominic Sena,101,Action,Whiteout,English,R,5.5,https://m.media-amazon.com/images/M/MV5BMTg5NDczMTQ4M15BMl5BanBnXkFtZTcwNzE4MjI4Mg@@._V1_.jpg
+Norman Jewison,181,Drama,Fiddler on the Roof,English,G,8,https://m.media-amazon.com/images/M/MV5BODQ5NGUzMzQtZTJjZC00MTk0LThjNmMtYzRjMjI1YTZiNmM5XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg
+Niki Caro,101,Drama,Whale Rider,English,PG_13,7.6,https://m.media-amazon.com/images/M/MV5BMTUwOTEwNTQwNl5BMl5BanBnXkFtZTcwMDE0MTAwMQ@@._V1_.jpg
+Mike Newell,139,Drama,Love in the Time of Cholera,English,R,6.4,https://m.media-amazon.com/images/M/MV5BMTQ3OTE0OTM4N15BMl5BanBnXkFtZTcwNDg3OTI1MQ@@._V1_.jpg
+Je-kyu Kang,148,Action,Tae Guk Gi: The Brotherhood of War,Korean,R,8.1,https://m.media-amazon.com/images/M/MV5BNjAxZTEzNzQtYjdlNy00ZTJmLTkwZDUtOTAwNTM3YjI2MWUyL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg
+John Lee Hancock,125,Biography,Saving Mr. Banks,English,PG_13,7.5,https://m.media-amazon.com/images/M/MV5BMTc2OTk2ODYyN15BMl5BanBnXkFtZTcwOTAxNzI5OQ@@._V1_.jpg
+Wes Craven,107,Horror,My Soul to Take,English,R,4.8,https://m.media-amazon.com/images/M/MV5BMTk4NjE1OTg1MV5BMl5BanBnXkFtZTcwNTgwOTU3Mw@@._V1_.jpg
+Raja Gosnell,103,Adventure,The Smurfs,English,PG,5.5,https://m.media-amazon.com/images/M/MV5BOTUzNTczYTMtMzdkOC00ODlkLTk1NDMtYWYxMzQyYzI1YmVjXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_.jpg
+Stephen Hopkins,103,Action,Predator 2,English,R,6.2,https://m.media-amazon.com/images/M/MV5BNThjZjI4NTgtZDk4Mi00ZjI1LWExZGUtNTRkOWY1ZTY3M2FlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg
+Sean Penn,124,Crime,The Pledge,English,R,6.8,https://m.media-amazon.com/images/M/MV5BMDhmOTA3NzMtYjUwMC00MGRmLWE2NGMtOGY3NWYzMmM0OTdiXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg
+Quentin Tarantino,154,Crime,Jackie Brown,English,R,7.5,https://m.media-amazon.com/images/M/MV5BNmY5ODRmYTItNWU0Ni00MWE3LTgyYzUtYjZlN2Q5YTcyM2NmXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg

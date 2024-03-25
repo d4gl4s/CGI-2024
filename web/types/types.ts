@@ -3,12 +3,13 @@ export type ageRatingType = "G" | "PG" | "PG_13" | "R" | "NC_17"
 export interface movieType {
   id: number
   title: string
-  description: string
   genre: string
+  directorsName: string
   ageRating: ageRatingType
   startTime: string
   duration: number
   language: string
+  imdbScore: number
   poster: string
 }
 
