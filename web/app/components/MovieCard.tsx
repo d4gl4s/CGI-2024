@@ -11,6 +11,7 @@ const MovieCard = ({ movie }: { movie: movieType }) => {
           <div className="relative h-[200px]">
             <Image
               src={movie.poster}
+              priority
               style={{
                 objectFit: "cover",
               }}
