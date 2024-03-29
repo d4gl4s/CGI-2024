@@ -3,12 +3,71 @@
 import { useState } from "react"
 import Chair from "./Chair"
 import { createArrayFrom1To48, recommendedSeats } from "../utils/suggestSeats"
+import { errorResponse, movieType } from "@/types/types"
+import { ScaleLoader } from "react-spinners"
+import { MdErrorOutline } from "react-icons/md"
+import { FaCheckCircle } from "react-icons/fa"
 
-const ChooseSeats = ({ unavailableSeats, handleAddPurchase }: { unavailableSeats: number[]; handleAddPurchase(seatNumbers: number[]): void }) => {
+interface PurchaseRequestDTO {
+  seatNumbers: number[]
+  movie: movieType
+}
+
+export const addPurchase = async (purchaseRequestDTO: PurchaseRequestDTO) => {
+  try {
+    const res = await fetch("http://localhost:8080/api/purchases", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(purchaseRequestDTO),
+    })
+
+    if (!res.ok) {
+      const errorResponse: errorResponse = await res.json()
+      return {
+        data: null,
+        error: errorResponse.message,
+      }
+    }
+    return {
+      data: await res.text(),
+      error: null,
+    }
+  } catch (error) {
+    return {
+      data: null,
+      error: "Somethign went wrong, try again later!",
+    }
+  }
+}
+
+const ChooseSeats = ({ unavailableSeats, movie }: { unavailableSeats: number[]; movie: movieType }) => {
   const availableSeatCount = 48 - unavailableSeats.length
   const [selected, setSelected] = useState<number[]>(recommendedSeats(Math.min(availableSeatCount, 1), unavailableSeats))
   const [ticketCount, setTicketCount] = useState<number>(selected.length != 0 ? 1 : 0)
   const seatNumbers = createArrayFrom1To48()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
+  const [success, setSuccess] = useState<boolean>(false)
+
+  async function handleNewPurchase() {
+    // check if selected seats not in unavailable seats
+    if (selected.length <= 0) {
+      setError("Palun vali ostu soovitamiseks vähemalt üks vaba istekoht.")
+      return
+    }
+    setLoading(true)
+    const { data, error } = await addPurchase({ seatNumbers: selected, movie })
+    if (error) {
+      setError(error)
+      setSuccess(false)
+    } else {
+      setSuccess(true)
+      setError("")
+    }
+    setLoading(false)
+  }
 
   function handleSelect(chairNumber: number) {
     // If chairNumber is already selected, deselect it
@@ -80,9 +139,23 @@ const ChooseSeats = ({ unavailableSeats, handleAddPurchase }: { unavailableSeats
           <path d="M0 0L912.612 55.5L1831 0V204H0V0Z" fill="#E0EEFF" />
         </svg>
       </section>
-      <button className="bg-blue-400 px-8 py-4 font-medium mt-12 hover:bg-blue-500" onClick={() => handleAddPurchase(selected)}>
-        Osta piletid
-      </button>
+      <div className="flex-col mt-12 items-center">
+        <button className="bg-blue-400 w-32 h-14 font-medium hover:bg-blue-500 flex items-center justify-center" onClick={handleNewPurchase}>
+          {loading ? <ScaleLoader height={15} width={3} color="#ffffff" /> : "Osta piletid"}
+        </button>
+        {error != "" && (
+          <div className="flex items-center mt-2 text-[#FF49A0]">
+            <MdErrorOutline />
+            <p className="ml-2">{error}</p>
+          </div>
+        )}
+        {success && (
+          <div className="flex items-center mt-2 text-[#59F4AA]">
+            <FaCheckCircle />
+            <p className="ml-2">Tehing oli edukas! Võid naasneda tagasi avalehele.</p>
+          </div>
+        )}
+      </div>
     </section>
   )
 }
