@@ -8,15 +8,27 @@ interface Dropdown {
   selectedOption: string
   options: string[] | ageRatingType[]
   handleVersionSelect(version: string | ageRatingType): void
+  disabled: boolean
 }
 
-const Dropdown = ({ selectedOption, options, handleVersionSelect }: Dropdown) => {
+const Dropdown = ({ selectedOption, options, handleVersionSelect, disabled }: Dropdown) => {
   const [open, setOpen] = useState<boolean>(false)
 
   function handleSelect(option: string | ageRatingType) {
+    if (disabled) return
     handleVersionSelect(option)
     setOpen(false)
   }
+
+  if (disabled)
+    return (
+      <div className="relative text-[0.9em] ml-1 mb-1">
+        <div className="flex w-[10em] flex-row text-slate-300 items-center justify-between py-2 px-4 bg-slate-50 border border-solid border-slate-200 border-1 rounded-[4px] cursor-not-allowed">
+          <span className="mr-1 font-medium">{selectedOption}</span>
+          {open ? <IoMdArrowDropup size={18} /> : <IoMdArrowDropdown size={18} />}
+        </div>
+      </div>
+    )
 
   return (
     <div className="relative text-[0.9em] ml-1 mb-1">

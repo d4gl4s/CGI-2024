@@ -16,12 +16,15 @@ interface Filters {
 }
 
 function generateURL({ page, ageRating, genre, language, startTime, recommended }: Filters) {
-  const url = new URL("/api/movies", "http://localhost:8080") // Adjust the base URL as needed
-  url.searchParams.append("size", "10") // Specify the page size
+  const pageSize = "10"
   if (recommended) {
-    url.searchParams.append("page", "0") // Specify the page number
+    const url = new URL("/api/movies/recommended", "http://localhost:8080")
+    url.searchParams.append("size", pageSize)
+    url.searchParams.append("page", page.toString()) // Specify the page number
     return url.toString()
   }
+  const url = new URL("/api/movies", "http://localhost:8080") // Adjust the base URL as needed
+  url.searchParams.append("size", "10") // Specify the page size
   url.searchParams.append("page", page.toString()) // Specify the page number
   if (ageRating) url.searchParams.append("ageRating", ageRating)
   if (genre) url.searchParams.append("genre", genre)
@@ -145,10 +148,10 @@ export default function MoviesClientComponent() {
       <h1 className="mt-20 mb-8 font-bold text-[2.5em]">Filmid</h1>
       <section className="flex flex-row justify-end mb-10 z-20 flex-wrap">
         <Checkbox label="Recommended" selected={recommended} handleSelect={() => handleRecommendedInputChange(!recommended)} />
-        <Dropdown selectedOption={selectedGenre} options={["Action", "Adventure", "Drama", "Animation", "Comedy", "Horror", "Crime"]} handleVersionSelect={handleGenreSelect} />
-        <Dropdown selectedOption={selectedLanguage} options={["English", "Korean", "tere3"]} handleVersionSelect={handleLanguageSelect} />
-        <Dropdown selectedOption={selectedAgeRating} options={["R", "PG", "PG_13", "G"]} handleVersionSelect={handleAgeRatingSelect} />
-        <Dropdown selectedOption={selectedStartTime} options={["10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"]} handleVersionSelect={handleStartTimeSelect} />
+        <Dropdown selectedOption={selectedGenre} options={["Action", "Adventure", "Drama", "Animation", "Comedy", "Horror", "Crime"]} handleVersionSelect={handleGenreSelect} disabled={recommended} />
+        <Dropdown selectedOption={selectedLanguage} options={["English", "Korean", "tere3"]} handleVersionSelect={handleLanguageSelect} disabled={recommended} />
+        <Dropdown selectedOption={selectedAgeRating} options={["R", "PG", "PG_13", "G"]} handleVersionSelect={handleAgeRatingSelect} disabled={recommended} />
+        <Dropdown selectedOption={selectedStartTime} options={["10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"]} handleVersionSelect={handleStartTimeSelect} disabled={recommended} />
         <button className="bg-indigo-400 px-4 rounded-md ml-1 text-white mb-1" onClick={resetFilter}>
           Reset
         </button>
