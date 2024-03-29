@@ -27,8 +27,7 @@ public class MovieService {
 
         public Movie getMovieById(Long id) {
                 Movie movie = movieRepository.findById(id).orElse(null);
-                if (movie == null)
-                        throw new MovieNotFoundException("Movie with id " + id + " not found");
+                if (movie == null) throw new MovieNotFoundException("Movie with id " + id + " not found");
                 return movie;
         }
 
@@ -57,7 +56,11 @@ public class MovieService {
         }
         // Method to get recommended movies based on user's purchase history
         public Page<Movie> getRecommendedMovies(Pageable pageable) {
-                List<Purchase> purchases = purchaseRepository.findAll(); // Retrieve all purchases
+                Long userId = 2L;
+                List<Purchase> purchases = purchaseRepository.findByUserId(userId); // Retrieve all user purchases
+
+                // If user has not made any purchases, return all movies.
+                if(purchases.isEmpty()) return getAllMovies(pageable, null, null, null, null);
 
                 // Count the occurrences of each genre in the purchases
                 Map<String, Long> genreCounts = purchases.stream()
@@ -68,11 +71,21 @@ public class MovieService {
                 List<String> sortedGenres = genreCounts.entrySet().stream()
                         .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                         .map(Map.Entry::getKey)
-                        .collect(Collectors.toList());
+                        .toList();
 
                 // Query movies based on preferred genres and weights
-                List<Movie> recommendedMovies = movieRepository.findByGenreInOrderByTitle(sortedGenres, pageable);
+                List<Movie> recommendedMovies = new ArrayList<>();
+                for(String genre: sortedGenres){
+                        List<Movie> genreMovies = movieRepository.findByGenreAndNotPurchasedByUser(genre, userId );
+                        // Sort movies based on imdb rating
+                        genreMovies.sort(Comparator.comparingDouble(Movie::getImdbScore).reversed());
+                        recommendedMovies.addAll(genreMovies);
+                }
 
-                return new PageImpl<>(recommendedMovies, pageable, recommendedMovies.size());
+                // Paginate recommended movies
+                int start = Math.toIntExact(pageable.getOffset());
+                int end = Math.min((start + pageable.getPageSize()), recommendedMovies.size());
+                if(start > end) throw new IllegalArgumentException("Incorrect page number");
+                return new PageImpl<>(recommendedMovies.subList(start, end), pageable, recommendedMovies.size());
         }
 }
