@@ -2,7 +2,7 @@
 
 ## Description
 
-This project consists of a web application built with Next.js and a backend application built with Java Spring Boot.
+This is my solution for the CGI 2024 Summer internship homework. The project is a simple movie booking system implemented in Java Spring Boot and Next.js React framework, with an H2 in-memory database for storing movie data. The application displays movies based on various search filters and provides pagination for ease of navigation. Users can make purchases for movie screenings by selecting available seats from a cinema room layout. Please refer to the sample [screenshots](#screenshots) below.
 
 ## Table of Contents
 
@@ -12,6 +12,7 @@ This project consists of a web application built with Next.js and a backend appl
   - [Accessing The Website](#accessing-the-website)
 - [My Experience](#my-experience)
 - [Time Management](#time-management)
+- [Screenshots](#screenshots)
 
 ## Installation
 
@@ -125,3 +126,4 @@ The most difficult and interesting part of the backend was implementing the movi
 
 On the frontend application, the most time-consuming tasks were implementing the dropdowns for selecting different filters on the main page and the seat selection on the movie suggestion page.
 
+## Screenshots
