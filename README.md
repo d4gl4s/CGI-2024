@@ -127,3 +127,7 @@ The most difficult and interesting part of the backend was implementing the movi
 On the frontend application, the most time-consuming tasks were implementing the dropdowns for selecting different filters on the main page and the seat selection on the movie suggestion page.
 
 ## Screenshots
+
+<img width="798" alt="screenshot1" src="https://github.com/d4gl4s/CGI-2024/assets/91371101/b8e9d371-d2fd-4cec-833c-f4f5078dfbab">
+
+<img width="597" alt="screenshot2" src="https://github.com/d4gl4s/CGI-2024/assets/91371101/887d5f25-962d-454b-a605-234fb104cf9e">
